@@ -71,6 +71,19 @@ example(of: "first(where:)") {
 }
 
 
+example(of: "last(where:)") {
+    // 1
+    let numbers = (1...9).publisher
+
+    // 2
+    numbers
+        .last(where: { $0 % 2 == 0 })
+        .sink(receiveCompletion: { print("Completed with: \($0)") },
+              receiveValue: { print($0) })
+        .store(in: &subscriptions)
+
+}
+
 /// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
