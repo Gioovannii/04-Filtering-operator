@@ -169,7 +169,6 @@ example(of: "prefix") {
         .store(in: &subscriptions)
 }
 
-
 example(of: "prefix(while:)") {
     // 1 create a publisher
     let numbers = (1...10).publisher
@@ -201,7 +200,6 @@ example(of: "prefix(untilOutputFrom:)") {
         }
     }
 }
-
 
 /// Copyright (c) 2020 Razeware LLC
 ///

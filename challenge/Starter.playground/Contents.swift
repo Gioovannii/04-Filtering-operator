@@ -2,8 +2,22 @@ import Foundation
 import Combine
 
 var subscriptions = Set<AnyCancellable>()
+// 1. Skip 50 values emited by publisher
+// 2. Take the 20 next values after those first 50 values
+// 3 .Only take even numbers
+// Output 52 54 56 58 60 62 64 66 68 70
 
-<#Add your code here#>
+example(of: "Challenge") {
+    let numbers = (1...100).publisher
+    
+    numbers
+        .dropFirst(50)
+        .prefix(20)
+        .filter( { $0 % 2 == 0 })
+        .sink( receiveValue: { print($0) })
+        .store(in: &subscriptions)
+    
+}
 
 /// Copyright (c) 2020 Razeware LLC
 ///
