@@ -113,6 +113,18 @@ example(of: "dropFirst") {
         .store(in: &subscriptions)
 }
 
+example(of: "drop(while:)") {
+    // 1 Create publisher
+    let numbers = (1...10).publisher
+    
+    // 2 Use frop while to wait first value which is divisible by 5
+    numbers
+        .drop(while: { $0 % 5 != 0 })
+        .sink(receiveValue: { print($0) })
+        .store(in: &subscriptions)
+}
+
+
 
 /// Copyright (c) 2020 Razeware LLC
 ///
