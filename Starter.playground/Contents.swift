@@ -157,6 +157,18 @@ example(of: "drop(untilOutputFrom:)") {
     }
 }
 
+example(of: "prefix") {
+    // 1 Create a publisher
+    let numbers = (1...10).publisher
+    
+    // 2 Use prefix(2) to allow emission first two values
+    numbers
+        .prefix(2)
+        .sink(receiveCompletion: { print("Compled with: \($0)") },
+              receiveValue: { print($0) })
+        .store(in: &subscriptions)
+}
+
 
 /// Copyright (c) 2020 Razeware LLC
 ///
