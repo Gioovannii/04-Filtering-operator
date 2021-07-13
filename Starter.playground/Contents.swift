@@ -30,6 +30,22 @@ example(of: "filtering") {
             .store(in: &subscriptions)
     }
 
+    example(of: "compactMap") {
+        // 1 create a publisher emit a finite list of string
+        let strings = ["a", "1.24", "3",
+                       "def", "45", "0.23"].publisher
+        
+        // 2 Use compact map to attempt initialize float or nil
+        strings
+            .compactMap { Float($0) }
+            .removeDuplicates()
+            .sink(receiveValue: {
+                    // 3 Only succesfull string will be print out
+                    print($0) })
+            .store(in: &subscriptions)
+    }
+
+
 
 /// Copyright (c) 2020 Razeware LLC
 ///
