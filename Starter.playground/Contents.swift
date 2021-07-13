@@ -84,6 +84,25 @@ example(of: "last(where:)") {
 
 }
 
+example(of: "last(where:)") {
+    let numbers = PassthroughSubject<Int, Never>()
+    
+    numbers
+        .last(where: { $0 % 2 == 0 })
+        .sink(receiveCompletion: { print("Completed with: \($0)") },
+              receiveValue: { print($0) })
+        .store(in: &subscriptions)
+    
+    numbers.send(1)
+    numbers.send(2)
+    numbers.send(3)
+    numbers.send(4)
+    numbers.send(5)
+    
+    numbers.send(completion: .finished)
+}
+
+
 /// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
