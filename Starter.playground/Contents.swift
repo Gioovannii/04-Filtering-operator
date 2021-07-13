@@ -124,6 +124,17 @@ example(of: "drop(while:)") {
         .store(in: &subscriptions)
 }
 
+example(of: "drop(while:)") {
+    let numbers = (1...10).publisher
+    
+    numbers
+        .drop(while: {
+            print("x")
+            return $0 % 5 != 0
+        })
+        .sink(receiveValue: { print($0) })
+        .store(in: &subscriptions)
+}
 
 
 /// Copyright (c) 2020 Razeware LLC
