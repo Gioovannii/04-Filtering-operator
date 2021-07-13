@@ -102,6 +102,17 @@ example(of: "last(where:)") {
     numbers.send(completion: .finished)
 }
 
+example(of: "dropFirst") {
+    // 1 Create a publisher from 1 to 10
+    let numbers = (1...10).publisher
+    
+    // 2 frop the first 8 values
+    numbers
+        .dropFirst(8)
+        .sink(receiveValue: { print($0) })
+        .store(in: &subscriptions)
+}
+
 
 /// Copyright (c) 2020 Razeware LLC
 ///
