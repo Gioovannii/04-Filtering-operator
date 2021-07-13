@@ -4,6 +4,20 @@ import Combine
 var subscriptions = Set<AnyCancellable>()
 
 
+example(of: "filtering") {
+    // 1 Crate a publisher which emit value from 1 to 10
+    let numbers = (1...10).publisher
+    
+    // 2 Use filter operator to allow to filter only multiple of 3
+    numbers
+        .filter { $0.isMultiple(of: 3) }
+        .sink(receiveValue: { n in
+            print("\(n) is a multiple of 3")
+        })
+        .store(in: &subscriptions)
+}
+
+
 /// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
