@@ -15,7 +15,20 @@ example(of: "filtering") {
             print("\(n) is a multiple of 3")
         })
         .store(in: &subscriptions)
-}
+    
+    
+    example(of: "removeDuplicates") {
+        // 1 Separate a sentance into an array of words and create a publisher to emit these words
+        let words = "hey hey there! I want to listen to mister mister ?"
+            .components(separatedBy: " ")
+            .publisher
+        
+        // 2 Apply removeDuplicates() to word publisher
+        words
+            .removeDuplicates()
+            .sink { print($0) }
+            .store(in: &subscriptions)
+    }
 
 
 /// Copyright (c) 2020 Razeware LLC
