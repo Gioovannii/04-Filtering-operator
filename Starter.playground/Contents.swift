@@ -170,6 +170,20 @@ example(of: "prefix") {
 }
 
 
+example(of: "prefix(while:)") {
+    // 1 create a publisher
+    let numbers = (1...10).publisher
+    
+    // 2 Use prefix whil to evaluate condition
+    numbers
+        .prefix(while: { $0 < 3 })
+        .sink(receiveCompletion: { print("Completed with: \($0)") },
+              receiveValue: { print($0) })
+        .store(in: &subscriptions)
+}
+
+
+
 /// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
