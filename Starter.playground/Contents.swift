@@ -57,6 +57,18 @@ example(of: "filtering") {
             .store(in: &subscriptions)
     }
 
+example(of: "first(where:)") {
+    // 1 Create a new publisher emiting numbers from 1 through 9
+    let numbers = (1...9).publisher
+    
+    // 2 Use first(where:) to find the first
+    numbers
+        .print("numbers")
+        .first(where: { $0 % 2 == 0 })
+        .sink(receiveCompletion: { print("Completed with: \($0)") },
+              receiveValue: { print($0) })
+        .store(in: &subscriptions)
+}
 
 
 /// Copyright (c) 2020 Razeware LLC
