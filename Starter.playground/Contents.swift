@@ -182,6 +182,25 @@ example(of: "prefix(while:)") {
         .store(in: &subscriptions)
 }
 
+example(of: "prefix(untilOutputFrom:)") {
+    // 1 Create two passtroughSubject
+    let isReady = PassthroughSubject<Void, Never>()
+    let taps = PassthroughSubject<Int, Never>()
+    
+    // 2 us prefix to let tap evend until isReady emit value
+    taps
+        .prefix(untilOutputFrom: isReady)
+        .sink(receiveCompletion: { print("Completed with: \($0)") },
+              receiveValue: { print($0) })
+    
+    // 3 send five taps through subject exactly as diagram above
+    (1...5).forEach { n in
+        taps.send(n)
+        if n == 2 {
+            isReady.send()
+        }
+    }
+}
 
 
 /// Copyright (c) 2020 Razeware LLC
