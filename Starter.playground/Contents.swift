@@ -15,7 +15,7 @@ example(of: "filtering") {
             print("\(n) is a multiple of 3")
         })
         .store(in: &subscriptions)
-    
+}
     
     example(of: "removeDuplicates") {
         // 1 Separate a sentance into an array of words and create a publisher to emit these words
@@ -29,7 +29,7 @@ example(of: "filtering") {
             .sink { print($0) }
             .store(in: &subscriptions)
     }
-
+    
     example(of: "compactMap") {
         // 1 create a publisher emit a finite list of string
         let strings = ["a", "1.24", "3",
@@ -42,6 +42,18 @@ example(of: "filtering") {
             .sink(receiveValue: {
                     // 3 Only succesfull string will be print out
                     print($0) })
+            .store(in: &subscriptions)
+    }
+    
+    example(of: "ignoreOutput") {
+        // 1 create publisher from 1 to 10k
+        let numbers = (1...10_000).publisher
+        
+        // ignore output which omit all values
+        numbers
+            .ignoreOutput()
+            .sink(receiveCompletion: { print("Completed with: \($0)")},
+                  receiveValue: { print($0) })
             .store(in: &subscriptions)
     }
 
